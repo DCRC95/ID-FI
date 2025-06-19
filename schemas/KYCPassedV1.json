@@ -1,0 +1,81 @@
+{
+  "@context": [
+    "https://www.w3.org/2018/credentials/v1",
+    "https://www.w3.org/2018/credentials/examples/v1"
+  ],
+  "@id": "https://example.com/schemas/KYCPassedV1.json",
+  "@type": "JsonSchemaValidator2018",
+  "name": "KYC Passed Credential",
+  "description": "A verifiable credential that attests to successful KYC (Know Your Customer) verification",
+  "version": "1.0.0",
+  "issuer": "did:polygonid:polygon:mumbai:2qH7XkYzXvB7N9K2M8L5Q3R6T9U1V4W7X",
+  "credentialSubject": {
+    "@id": "https://www.w3.org/2018/credentials#credentialSubject",
+    "@type": "JsonSchemaValidator2018",
+    "properties": {
+      "hasPassedKYC": {
+        "@type": "https://www.w3.org/2001/XMLSchema#boolean",
+        "title": "KYC Verification Status",
+        "description": "Indicates whether the subject has passed KYC verification",
+        "const": true
+      },
+      "countryOfResidence": {
+        "@type": "https://www.w3.org/2001/XMLSchema#string",
+        "title": "Country of Residence",
+        "description": "The country where the subject currently resides",
+        "pattern": "^[A-Z]{2}$",
+        "minLength": 2,
+        "maxLength": 2
+      },
+      "ageOver18": {
+        "@type": "https://www.w3.org/2001/XMLSchema#boolean",
+        "title": "Age Verification",
+        "description": "Indicates whether the subject is over 18 years of age",
+        "const": true
+      },
+      "verificationDate": {
+        "@type": "https://www.w3.org/2001/XMLSchema#dateTime",
+        "title": "Verification Date",
+        "description": "The date when KYC verification was completed"
+      },
+      "verificationMethod": {
+        "@type": "https://www.w3.org/2001/XMLSchema#string",
+        "title": "Verification Method",
+        "description": "The method used for KYC verification",
+        "enum": ["document_verification", "biometric_verification", "address_verification", "comprehensive"]
+      },
+      "riskLevel": {
+        "@type": "https://www.w3.org/2001/XMLSchema#string",
+        "title": "Risk Assessment Level",
+        "description": "The assessed risk level based on KYC verification",
+        "enum": ["low", "medium", "high"],
+        "default": "low"
+      },
+      "complianceStatus": {
+        "@type": "https://www.w3.org/2001/XMLSchema#string",
+        "title": "Compliance Status",
+        "description": "The compliance status following KYC verification",
+        "enum": ["compliant", "pending", "non_compliant"],
+        "default": "compliant"
+      }
+    },
+    "required": ["hasPassedKYC", "countryOfResidence", "ageOver18", "verificationDate"],
+    "additionalProperties": false
+  },
+  "credentialStatus": {
+    "@type": "CredentialStatusList2017",
+    "id": "https://example.com/credentials/status/3",
+    "type": "CredentialStatusList2017"
+  },
+  "evidence": {
+    "@type": "Evidence",
+    "evidenceDocument": "KYC Verification Report",
+    "subjectPresence": "Digital",
+    "documentPresence": "Digital"
+  },
+  "termsOfUse": {
+    "@type": "TermsOfUse",
+    "id": "https://example.com/terms-of-use",
+    "type": "IssuerPolicy"
+  }
+} 
